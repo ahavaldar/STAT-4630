@@ -9,7 +9,8 @@ data <- Auto
 #4) 
 data$origin <- factor(data$origin)
 levels(data$origin) <- c("American", "European", "Japanese")
-# We are assuming they can be treated as numeric values without factor levels
+# We are assuming they can be treated as numeric values without factor levels. 
+# These discrete variables can also be used in a regression.
 # 5)
 pairs(data[,1:7], 
       lower.panel = NULL, 
@@ -69,6 +70,9 @@ summary(result2)
 reduced <- lm(mpg2~cylinders+horsepower
               +weight+year, data=data)
 anova(reduced,result2)
+cor(data[c(1:7, 10)])
+par(mfrow=c(2,2))   
+plot(result)
 # We fail to reject the null of the anova test, which means 
 # we will use the reduced model. 
 reduced2 <- lm(mpg2~cylinders+horsepower
@@ -84,3 +88,9 @@ summary(pairwise)
 # Japanese and European cars don't differ in fuel efficiency.
 # American cars however do differ in fuel efficienct when compared to 
 # European and Japanese cars. 
+
+
+cor(data[c(1:7, 10)])
+pairs(data[c(1:7, 10)], 
+      lower.panel = NULL, 
+      main="Scatterplot of Quantitative Variables")
